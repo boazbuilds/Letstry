@@ -1,9 +1,10 @@
 # ❤️ Hartslag — mijn eerste iPhone-app
 
-Een hele simpele iOS-app die:
+Een simpele iOS-app die:
 
-1. je **hartslag uitleest** uit Apple Health, en
-2. die met één tik **naar een vriend stuurt** (via WhatsApp, Berichten, Mail, …).
+1. je **hartslag uitleest** uit Apple Health,
+2. die met één tik **deelt** (via WhatsApp, Berichten, Mail, …), en
+3. waarmee je **vrienden kunt toevoegen** en hun een verzoek *"Wat is je hartslag?"* stuurt.
 
 Gemaakt als oefenproject: het doel is *leren hoe je een iPhone-app maakt en op je
 eigen telefoon zet* — niet zozeer wat de app allemaal kan.
@@ -20,14 +21,19 @@ Alle code staat in de map [`Hartslag/`](Hartslag/):
 | Bestand | Wat het doet |
 |---|---|
 | [`HartslagApp.swift`](Hartslag/HartslagApp.swift) | Het startpunt van de app. |
-| [`ContentView.swift`](Hartslag/ContentView.swift) | Het scherm: tekst, knoppen en de deel-knop. |
+| [`ContentView.swift`](Hartslag/ContentView.swift) | Het hoofdscherm: naam, hartslag en vriendenlijst. |
 | [`HealthManager.swift`](Hartslag/HealthManager.swift) | Praat met Apple Health: toestemming + hartslag ophalen. |
+| [`Friends.swift`](Hartslag/Friends.swift) | Onthoudt je vrienden (naam + nummer) op de telefoon. |
+| [`UIKitBruggen.swift`](Hartslag/UIKitBruggen.swift) | Contactkiezer + de Berichten-app aansturen. |
+| [`RequestView.swift`](Hartslag/RequestView.swift) | Het scherm dat je vriend ziet bij een verzoek. |
 
 ## 🛠️ Techniek
 
 - **Swift** + **SwiftUI** (Apple's moderne manier om apps te bouwen)
 - **HealthKit** om de hartslag te lezen
-- De iOS-**deelfunctie** (`ShareLink`) om naar een vriend te sturen — geen server of account nodig
+- **Contacts** om een vriend te kiezen, en **MessageUI** om het verzoek te sturen
+- Een **diep-link** (`hartslag://`) zodat je vriend het verzoek-scherm opent
+- Alles **zonder server of betaald account** — de Berichten-app is de "postbode"
 
 ## 📋 Vereisten
 

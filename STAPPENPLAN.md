@@ -167,13 +167,87 @@ Je app opent nu op je iPhone! 🎉
 
 ## Hoe de app in elkaar zit (voor de nieuwsgierigen)
 
-De app bestaat uit 3 kleine bestanden — samen nog geen 100 regels:
+De app bestaat uit kleine, overzichtelijke bestanden:
 
 | Bestand | Wat het doet |
 |---|---|
 | `HartslagApp.swift` | Het startpunt. Zegt: "begin hier, en toon het hoofdscherm." |
-| `ContentView.swift` | Het scherm zelf: de tekst, de knoppen en de deel-knop. |
+| `ContentView.swift` | Het hoofdscherm: jouw naam, je hartslag en je vriendenlijst. |
 | `HealthManager.swift` | De "tolk" naar Apple Health: vraagt toestemming en haalt de hartslag op. |
+| `Friends.swift` | Onthoudt je vrienden (naam + nummer) op de telefoon. |
+| `UIKitBruggen.swift` | De contactkiezer en de Berichten-app aansturen. |
+| `RequestView.swift` | Het scherm dat je vriend ziet als hij jouw verzoek opent. |
 
 De code staat vol met Nederlandse uitleg-regels (de groene tekst achter `//`),
 zodat je per regel kunt zien wat er gebeurt.
+
+---
+
+## 🧑‍🤝‍🧑 Uitbreiding: vrienden toevoegen + hartslag-verzoek
+
+Heb je de basis-app werkend? Top! Nu breiden we 'm uit zodat je **vrienden kunt
+toevoegen** en hun een verzoek *"Wat is je hartslag?"* kunt sturen.
+
+> **Hoe het werkt (de "Messages-truc"):** je kiest een vriend uit je contacten en
+> tikt erop. De Berichten-app opent met een kant-en-klaar berichtje + een speciale
+> link. Je vriend (die de app óók heeft) opent die link, ziet jouw verzoek, en stuurt
+> zijn hartslag terug. **Geen server nodig — gratis!**
+
+### A. De nieuwe code toevoegen
+
+1. **Vervang** de inhoud van `ContentView.swift` door de nieuwe versie uit
+   [`Hartslag/ContentView.swift`](Hartslag/ContentView.swift).
+2. Voeg **3 nieuwe bestanden** toe (rechtsklik in de zijbalk → *New File from Template…*
+   → **Swift File**) en plak telkens de inhoud uit deze repo:
+   - **`Friends.swift`** → [`Hartslag/Friends.swift`](Hartslag/Friends.swift)
+   - **`UIKitBruggen.swift`** → [`Hartslag/UIKitBruggen.swift`](Hartslag/UIKitBruggen.swift)
+   - **`RequestView.swift`** → [`Hartslag/RequestView.swift`](Hartslag/RequestView.swift)
+
+> 💡 De onderdelen *Contacts* en *Berichten* worden vanzelf gekoppeld zodra je ze
+> `import`-eert. Daar hoef je niets voor aan te zetten.
+
+### B. De "hartslag://"-link registreren
+
+Zodat je iPhone weet dat een `hartslag://`-link jóuw app moet openen:
+
+1. Klik op het blauwe project-icoon → kies onder **TARGETS** je app → tabblad **Info**.
+2. Scroll omlaag naar **URL Types** en klik op **+**.
+3. Vul in:
+   - **Identifier:** `com.boaz.hartslag` (mag je zelf verzinnen)
+   - **URL Schemes:** `hartslag`  ← *dit veld is het belangrijkst!*
+
+### C. (Optioneel) Contacten-uitleg
+
+De contactkiezer vraagt meestal geen toestemming. Vraagt je app er tóch om? Voeg dan in
+**Info** de sleutel **`Privacy - Contacts Usage Description`** toe, bv.:
+"Om een vriend te kiezen om je hartslag mee te delen."
+
+### D. Uitproberen
+
+1. Druk weer op **▶ (Run)** om de nieuwe versie op je iPhone te zetten.
+2. Vul bovenin **jouw naam** in.
+3. Tik rechtsboven op **+** en kies een vriend uit je contacten.
+4. Tik op die vriend in de lijst → de Berichten-app opent met het verzoek → verstuur.
+
+> ⚠️ **Berichten sturen werkt alleen op een echte iPhone** (niet in de simulator).
+
+### E. De ontvang-kant testen (in je eentje!)
+
+Je vriend heeft de app ook nodig. Wil je het alvast zelf testen? Open op dezelfde
+telefoon **Safari** en typ in de adresbalk:
+
+```
+hartslag://verzoek?van=Test
+```
+
+→ Je app springt open met het scherm **"Test vraagt je hartslag"**, waar je 'm kunt
+ophalen en terugsturen. 🎉
+
+### Eerlijk over de grenzen hiervan
+
+- 👬 **Je vriend heeft de app óók nodig** (zijn hartslag staat in *zíjn* Health). Met een
+  gratis account zet je de app op zijn telefoon door zijn iPhone even aan jouw Mac te
+  koppelen en op ▶ te drukken (werkt dan 7 dagen). Makkelijk delen op afstand? Dan kom je
+  uit bij een betaald account + **TestFlight** — een mooi vervolgproject.
+- 🔗 **De link is niet altijd "tikbaar"** in Berichten (Apple maakt alleen bekende links
+  blauw). Soms moet je vriend de app dus zelf even openen. Voor een oefen-app is dat prima.

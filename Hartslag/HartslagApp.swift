@@ -1,15 +1,21 @@
 import SwiftUI
 
-// Dit is het "startpunt" van de app.
-// Het @main-label vertelt iOS: hier begint alles.
-// Zodra je op het app-icoon tikt, wordt dit als eerste uitgevoerd.
+// Het startpunt van de app: hier begint alles.
 @main
 struct HartslagApp: App {
+
+    // De twee "helpers" van de app worden hier één keer aangemaakt en daarna
+    // met álle schermen gedeeld. Zo is er één waarheid (single source of truth):
+    // - health      praat met Apple Health
+    // - friendsStore bewaart je vriendenlijst
+    @StateObject private var health = HealthManager()
+    @StateObject private var friendsStore = FriendsStore()
+
     var body: some Scene {
-        // Een WindowGroup is simpelweg "het scherm" van je app.
-        // We laten daarin onze ContentView zien (zie ContentView.swift).
         WindowGroup {
             ContentView()
+                .environmentObject(health)
+                .environmentObject(friendsStore)
         }
     }
 }

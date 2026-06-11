@@ -1,43 +1,50 @@
 # ❤️ Hartslag — mijn eerste iPhone-app
 
-Een simpele iOS-app die:
+Een iOS-app die:
 
-1. je **hartslag uitleest** uit Apple Health,
-2. die met één tik **deelt** (via WhatsApp, Berichten, Mail, …), en
-3. waarmee je **vrienden kunt toevoegen** en hun een verzoek *"Wat is je hartslag?"* stuurt.
+1. je **hartslag uitleest** uit Apple Health (met tijdstip van de meting),
+2. die met één tik **deelt** via WhatsApp, Berichten, Mail, …
+3. en waarmee je **vrienden toevoegt** en hun vraagt: *"Wat is jouw hartslag?"* —
+   zij krijgen een berichtje met een link die hún app opent, en sturen met één
+   tik hun hartslag terug.
 
-Gemaakt als oefenproject: het doel is *leren hoe je een iPhone-app maakt en op je
-eigen telefoon zet* — niet zozeer wat de app allemaal kan.
+Gemaakt als leerproject: het doel is *leren hoe je een iPhone-app maakt en op
+je eigen telefoon zet*.
 
 ## 🚀 Aan de slag
 
-👉 Volg het **[STAPPENPLAN.md](STAPPENPLAN.md)** — een rustige, Nederlandse gids die je
-stap voor stap door alles heen loodst (Xcode installeren, project maken, op je iPhone zetten).
+Het complete Xcode-project zit in deze repo — instellingen, app-icoon, alles.
+
+1. Haal deze repo binnen op je Mac (branch `claude/festive-cori-aqSEA`).
+2. Open **`Hartslag.xcodeproj`**.
+3. Kies je eigen team onder *Signing & Capabilities* en druk op ▶.
+
+👉 De uitgebreide, rustige uitleg staat in **[STAPPENPLAN.md](STAPPENPLAN.md)**.
 
 ## 📂 De code
 
-Alle code staat in de map [`Hartslag/`](Hartslag/):
-
-| Bestand | Wat het doet |
+| Map / bestand | Taak |
 |---|---|
-| [`HartslagApp.swift`](Hartslag/HartslagApp.swift) | Het startpunt van de app. |
-| [`ContentView.swift`](Hartslag/ContentView.swift) | Het hoofdscherm: naam, hartslag en vriendenlijst. |
-| [`HealthManager.swift`](Hartslag/HealthManager.swift) | Praat met Apple Health: toestemming + hartslag ophalen. |
-| [`Friends.swift`](Hartslag/Friends.swift) | Onthoudt je vrienden (naam + nummer) op de telefoon. |
-| [`UIKitBruggen.swift`](Hartslag/UIKitBruggen.swift) | Contactkiezer + de Berichten-app aansturen. |
-| [`RequestView.swift`](Hartslag/RequestView.swift) | Het scherm dat je vriend ziet bij een verzoek. |
+| [`HartslagApp.swift`](Hartslag/HartslagApp.swift) | Startpunt; maakt de gedeelde helpers aan |
+| [`Models/Friend.swift`](Hartslag/Models/Friend.swift) | Het vriend-model + de bewaarde vriendenlijst |
+| [`Models/HeartRateRequest.swift`](Hartslag/Models/HeartRateRequest.swift) | De `hartslag://`-links maken en lezen |
+| [`Services/HealthManager.swift`](Hartslag/Services/HealthManager.swift) | Al het contact met Apple Health |
+| [`Views/ContentView.swift`](Hartslag/Views/ContentView.swift) | Het hoofdscherm |
+| [`Views/HeartRateCard.swift`](Hartslag/Views/HeartRateCard.swift) | De rode kaart met je hartslag |
+| [`Views/FriendRow.swift`](Hartslag/Views/FriendRow.swift) | Eén regel in de vriendenlijst |
+| [`Views/RequestView.swift`](Hartslag/Views/RequestView.swift) | Het scherm bij een binnengekomen verzoek |
+| [`Views/UIKitBridges.swift`](Hartslag/Views/UIKitBridges.swift) | Bruggen naar contactenkiezer en Berichten |
 
-## 🛠️ Techniek
+## 🛠️ Techniek & principes
 
-- **Swift** + **SwiftUI** (Apple's moderne manier om apps te bouwen)
-- **HealthKit** om de hartslag te lezen
-- **Contacts** om een vriend te kiezen, en **MessageUI** om het verzoek te sturen
-- Een **diep-link** (`hartslag://`) zodat je vriend het verzoek-scherm opent
-- Alles **zonder server of betaald account** — de Berichten-app is de "postbode"
+- **Swift + SwiftUI**, **HealthKit**, **ContactsUI**, **MessageUI**
+- Eén bron van waarheid: gedeelde `HealthManager`/`FriendsStore` via `environmentObject`
+- Schermen bevatten geen Health-logica (scheiding van taken)
+- Geen server of betaald account nodig: **de Berichten-app is de postbode**
+- Donkere modus, Dynamic Type en VoiceOver werken mee dankzij systeem-bouwstenen
 
 ## 📋 Vereisten
 
-- Een Mac met **Xcode** (gratis)
-- Een **iPhone** (HealthKit werkt niet in de simulator)
-- Een **gratis Apple ID** (geen betaald developer-account nodig)
-- iOS **17** of nieuwer
+- Mac met **Xcode 16 of nieuwer** (gratis)
+- **iPhone** met iOS **17+** (HealthKit werkt niet in de simulator)
+- Gratis **Apple ID**

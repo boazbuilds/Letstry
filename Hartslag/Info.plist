@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>nl.boazstruik.hartslag.verzoek</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hartslag</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSContactsUsageDescription</key>
+	<string>Om een vriend uit je contacten te kiezen aan wie je een hartslag-verzoek stuurt.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Deze app leest je hartslag zodat je die kunt bekijken en naar een vriend kunt sturen.</string>
+	<key>UILaunchScreen</key>
+	<dict/>
+</dict>
+</plist>
